@@ -1,6 +1,8 @@
 package com.example.demosqlite02;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
@@ -47,7 +49,6 @@ public class AdapterRecord extends RecyclerView.Adapter<AdapterRecord.HolderReco
         String price = modelRecord.getPrice();
         String description = modelRecord.getDescription();
 
-
         holder.ivProduct.setImageURI(Uri.parse(image));
         holder.tvProduct.setText(product_name);
         holder.tvPrice.setText(price);
@@ -77,11 +78,51 @@ public class AdapterRecord extends RecyclerView.Adapter<AdapterRecord.HolderReco
         holder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showMoreDialog(
+                        "" + position,
+                        "" + id,
+                        "" + product_name,
+                        "" + image,
+                        "" + brand,
+                        "" + model,
+                        "" + serialnumber,
+                        "" + price,
+                        "" + description
+                );
 
             }
         });
 
     }
+
+    private void showMoreDialog(String position, String id, String product_name, String image, String brand, String model, String serialNumber, String price, String description) {
+        String[] options = {"Editar", "Eliminar"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = new Intent(context, AddUpdate.class);
+
+                    intent.putExtra("ID", id);
+                    intent.putExtra("PRODUCT_NAME", product_name);
+                    intent.putExtra("IMAGE", image);
+                    intent.putExtra("BRAND", brand);
+                    intent.putExtra("MODEL", model);
+                    intent.putExtra("SERIALNUMBER", serialNumber);
+                    intent.putExtra("PRICE", price);
+                    intent.putExtra("DESCRIPTION", description);
+                    intent.putExtra("isEditMode", true);
+                    context.startActivity(intent);
+
+                } else if (which == 1) {
+
+                }
+            }
+        });
+        builder.create().show();
+    }
+
 
     @Override
     public int getItemCount() {
@@ -99,7 +140,7 @@ public class AdapterRecord extends RecyclerView.Adapter<AdapterRecord.HolderReco
         public HolderRecord(@NonNull View itemView) {
             super(itemView);
 
-            ivProduct = itemView.findViewById(R.id.civImage2);
+            // ivProduct = itemView.findViewById(R.id.civImage2);
             tvProduct = itemView.findViewById(R.id.tvProduct);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvPrice = itemView.findViewById(R.id.tvPrice);

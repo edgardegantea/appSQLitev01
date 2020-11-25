@@ -31,4 +31,10 @@ public class Constants {
             + C_PRICE + " TEXT,"
             + C_DESCRIPTION + " TEXT"
             + ")";
+
+    // CREATE TABLE PRODUCTS(
+    //      ID INT NOT NULL AUTO_INCREMENT,
+    //        ...
+    //        PRIMARY KEY(ID)
+    // );
 }

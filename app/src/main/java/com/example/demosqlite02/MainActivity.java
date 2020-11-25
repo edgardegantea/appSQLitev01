@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddUpdate.class));
+                Intent intent = new Intent(MainActivity.this, AddUpdate.class);
+                intent.putExtra("isEditMode", false);
+                startActivity(intent);
             }
         });
     }
@@ -90,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
 
      */
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

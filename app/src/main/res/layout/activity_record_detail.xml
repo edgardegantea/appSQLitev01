@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             app:c_border="true"
             app:c_border_color="@color/black"
-            android:background="@mipmap/ic_person"
+            android:src="@drawable/ic_image001"
             app:c_border_width="1dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"

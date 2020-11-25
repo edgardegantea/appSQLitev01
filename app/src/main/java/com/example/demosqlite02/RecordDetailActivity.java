@@ -67,6 +67,7 @@ public class RecordDetailActivity extends AppCompatActivity {
                 } else {
                     civImage3.setImageURI(Uri.parse(image));
                 }
+
                 tvProduct.setText(product_name);
                 tvDescription.setText(description);
                 tvBrand.setText(brand);

@@ -34,7 +34,14 @@ public class AddUpdate extends AppCompatActivity {
     private FloatingActionButton fabSave;
     private ActionBar actionBar;
 
-    private String product_name, brand, model, serialnumber, price, description;
+    private String id;
+    private Uri image;
+    private String product_name;
+    private String brand;
+    private String model;
+    private String serialnumber;
+    private String price;
+    private String description;
     private HelperDB helperDB;
 
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -45,7 +52,7 @@ public class AddUpdate extends AppCompatActivity {
     private String[] cameraPermissions;
     private String[] storagePermissions;
     private Uri imageUri;
-
+    private boolean isEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +98,39 @@ public class AddUpdate extends AppCompatActivity {
                 insertData();
             }
         });
+
+        Intent intent = getIntent();
+        isEditMode = intent.getBooleanExtra("isEditMode", false);
+
+        if (isEditMode) {
+
+            actionBar.setTitle("Actualizar datos");
+
+            id = intent.getStringExtra("ID");
+            product_name = intent.getStringExtra("PRODUCT_NAME");
+            image = Uri.parse(intent.getStringExtra("IMAGE"));
+            brand = intent.getStringExtra("BRAND");
+            model = intent.getStringExtra("MODEL");
+            serialnumber = intent.getStringExtra("SERIALNUMBER");
+            price = intent.getStringExtra("PRICE");
+            description = intent.getStringExtra("DESCRIPTION");
+
+            etProductName.setText(product_name);
+            etBrand.setText(brand);
+            etModel.setText(model);
+            etSerialNumber.setText(serialnumber);
+            etPrice.setText(price);
+            etDescription.setText(description);
+
+            if (imageUri.toString().equals("null")) {
+                civImage.setImageResource(R.drawable.ic_image001);
+            } else {
+                civImage.setImageURI(imageUri);
+            }
+
+        } else {
+
+        }
     }
 
     private void insertData() {
@@ -101,17 +141,35 @@ public class AddUpdate extends AppCompatActivity {
         price           = "" + etPrice.getText().toString().trim();
         description     = "" + etDescription.getText().toString().trim();
 
-        long id = helperDB.insertRecord(
-                "" + product_name,
-                "" + imageUri,
-                "" + brand,
-                "" + model,
-                "" + serialnumber,
-                "" + price,
-                "" + description
-                );
+        if (isEditMode) {
+            helperDB.updateRecord(
+                    "" + id,
+                    "" + product_name,
+                    "" + imageUri,
+                    "" + brand,
+                    "" + model,
+                    "" + serialnumber,
+                    "" + price,
+                    "" + description
+            );
 
-        Toast.makeText(this, "Registro almacenado con éxito, ID: " + id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registro actualizado con éxito, ID: " + id, Toast.LENGTH_SHORT).show();
+
+        } else {
+
+
+            long id = helperDB.insertRecord(
+                    "" + product_name,
+                    "" + imageUri,
+                    "" + brand,
+                    "" + model,
+                    "" + serialnumber,
+                    "" + price,
+                    "" + description
+            );
+
+            Toast.makeText(this, "Registro almacenado con éxito, ID: " + id, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void imagePickDialog() {

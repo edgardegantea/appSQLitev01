@@ -15,27 +15,31 @@
         android:layout_height="wrap_content"
         >
 
+        <!--
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_person_foreground"
+            android:src="@drawable/ic_image001"
             app:c_border="true"
             app:c_border_width="1dp"
             app:c_border_color="@color/black"
             android:id="@+id/civImage2"
             />
+            -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:orientation="vertical"
-            android:layout_toEndOf="@+id/civImage2"
-            android:layout_toRightOf="@+id/civImage2"
             android:layout_toStartOf="@id/btnMore"
             android:layout_toLeftOf="@id/btnMore"
             >
+            <!-- android:layout_toEndOf="@+id/civImage2"
+            android:layout_toRightOf="@+id/civImage2" -->
+
+
 
             <TextView
                 android:layout_width="match_parent"

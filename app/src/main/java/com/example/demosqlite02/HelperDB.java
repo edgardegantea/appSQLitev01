@@ -41,8 +41,29 @@ public class HelperDB extends SQLiteOpenHelper {
         values.put(Constants.C_DESCRIPTION, description);
 
         long id = db.insert(Constants.TABLE_NAME, null, values);
+        // INSERT INTO PRODUCTS VALUES(...);
+
         db.close();
         return id;
+    }
+
+    public void updateRecord(String id, String product_name, String image, String brand, String model, String serialnumber, String price, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(Constants.C_PRODUCT_NAME, product_name);
+        values.put(Constants.C_IMAGE, image);
+        values.put(Constants.C_BRAND, brand);
+        values.put(Constants.C_MODEL, model);
+        values.put(Constants.C_SERIALNUMBER, serialnumber);
+        values.put(Constants.C_PRICE, price);
+        values.put(Constants.C_DESCRIPTION, description);
+
+        db.update(Constants.TABLE_NAME, values, Constants.C_ID + " = ?", new String[] {id});
+        // INSERT INTO PRODUCTS VALUES(...);
+
+        db.close();
+        // return id;
     }
 
     public ArrayList<ModelRecord> getAllRecords(String orderBy) {
